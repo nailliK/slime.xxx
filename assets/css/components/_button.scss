@@ -1,0 +1,53 @@
+@use "/assets/css/utilities";
+
+.button {
+  align-items: center;
+  backdrop-filter: blur(var(--gap));
+  background-color: rgba(256, 256, 256, 0.1);
+  //border: solid 2px var(--color-foreground);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  height: calc(2 * var(--line-height));
+  justify-content: center;
+  line-height: calc(2 * var(--line-height));
+  outline: none;
+  transition: all 0.25s ease-in-out;
+  width: calc(2 * var(--line-height));
+
+  svg {
+    filter: drop-shadow(0 0 1px rgba(0, 0, 0, 0.75)) drop-shadow(0 0 0 rgba(255, 255, 255, 0));
+    height: var(--line-height);
+    transition: all 0.25s ease-in-out;
+    width: auto;
+
+    line, path, rect {
+      stroke: var(--color-foreground);
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-width: 2;
+    }
+  }
+
+  span {
+    @include utilities.hidden;
+  }
+
+  &--large {
+    height: calc(4 * var(--line-height));
+    line-height: calc(4 * var(--line-height));
+    width: calc(4 * var(--line-height));
+
+    svg {
+      height: calc(2 * var(--line-height));
+    }
+  }
+
+  &:hover {
+
+    svg {
+      filter: drop-shadow(0 0 1px rgba(0, 0, 0, 0.75)) drop-shadow(0 0 4px rgba(255, 255, 255, 0.75));
+    }
+  }
+}

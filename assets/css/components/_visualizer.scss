@@ -1,0 +1,116 @@
+@use "../variables";
+
+#visualizer {
+  align-items: center;
+  display: flex;
+  gap: var(--gap);
+  height: 100vh;
+  justify-content: center;
+  left: 0;
+  padding: var(--gap);
+  position: fixed;
+  top: 0;
+  width: 100vw;
+
+  #analyser {
+    align-items: center;
+    display: flex;
+    height: 100vh;
+    justify-content: space-between;
+    left: 0;
+    position: fixed;
+    top: 0;
+    width: 100vw;
+    z-index: 1;
+
+    div {
+      border: solid 1px currentColor;
+      border-radius: 2px;
+      transition: height 0.0625s ease-in-out;
+    }
+  }
+
+  #player {
+    backdrop-filter: blur(calc(2 * var(--gap)));
+    background-color: rgba(0, 0, 0, 0);
+    border-radius: calc(0.5 * var(--line-height));
+    box-shadow: 0 var(--line-height) calc(2 * var(--line-height)) rgba(0, 0, 0, 0.875);
+    display: flex;
+    overflow: hidden;
+    z-index: 10;
+
+    @media (orientation: landscape) {
+      flex-wrap: nowrap;
+      height: 37.5vw;
+      width: 75vw;
+    }
+    @media (orientation: portrait) {
+      flex-wrap: wrap;
+      height: 75vh;
+      width: 37.5vh;
+    }
+
+    #poster-image, #interactive-area {
+      @media (orientation: landscape) {
+        flex-basis: 50%;
+        height: 100%;
+      }
+      @media (orientation: portrait) {
+        flex-basis: 100%;
+        height: 50%;
+      }
+    }
+
+    #poster-image {
+      overflow: hidden;
+
+      img {
+        display: block;
+        height: 100%;
+        object-fit: cover;
+        width: 100%;
+      }
+    }
+
+    #interactive-area {
+      align-content: space-evenly;
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--line-height);
+      justify-content: center;
+      z-index: 10;
+
+      @media (min-height: 768px) {
+        gap: var(--gap);
+      }
+
+      #buttons {
+        align-items: center;
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--gap);
+        justify-content: center;
+
+        @media screen and (max-width: 320px) {
+          gap: 4px;
+        }
+      }
+
+      #song-title {
+        text-align: center;
+        width: 100%;
+      }
+
+      #slider {
+        width: 100%;
+
+        input {
+          width: 100%;
+        }
+      }
+    }
+
+    #audio {
+    }
+  }
+}
