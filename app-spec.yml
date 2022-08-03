@@ -1,0 +1,16 @@
+name: slime-xxx
+region: sfo
+services:
+  - build_command: yarn build
+    environment_slug: node-js
+    github:
+      branch: main
+      deploy_on_push: true
+      repo: nailliK/slime.xxx
+    http_port: 80
+    instance_count: 1
+    instance_size_slug: basic-xxs
+    name: slime-xxx
+    routes:
+      - path: /
+    source_dir: /
