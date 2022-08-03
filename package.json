@@ -14,5 +14,8 @@
   },
   "dependencies": {
     "@foobar404/wave": "^2.0.3"
+  },
+  "engines": {
+    "node": "16.x"
   }
 }

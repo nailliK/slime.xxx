@@ -173,7 +173,7 @@ const songArray: Array<{}> = [
     {
         audioSrc: '/audio/2022-07-30.mp3',
         imgSrc: '/images/THE_RADNESS_I_am_slime_2b7ef6f0-72b0-43cc-819e-c6e931b57281.png',
-        title: '2022-07-30',
+        title: 'Meditation: 2022-07-30',
         glowColor: 'rgba(79,31,82,0.75)',
         primaryColor: '#4f1f52'
     },
@@ -182,21 +182,21 @@ const songArray: Array<{}> = [
         glowColor: 'rgba(55, 154, 114, 0.75)',
         primaryColor: '#379A72',
         imgSrc: '/images/THE_RADNESS_I_am_slime_3279a317-9b68-4840-9eb3-3d94e80e394b.png',
-        title: '2022-07-22'
+        title: 'Meditation: 2022-07-22'
     },
     {
         audioSrc: '/audio/2022-07-20.mp3',
         glowColor: 'rgba(175,79,93,0.75)',
         imgSrc: '/images/THE_RADNESS_I_am_slime_eab2de4f-a06a-4008-be43-405d4d4f8813.png',
         primaryColor: '#af4f5d',
-        title: '2022-07-20'
+        title: 'Meditation: 2022-07-20'
     },
     {
         audioSrc: '/audio/2022-07-07.mp3',
         glowColor: 'rgba(217,87,26,0.75)',
         imgSrc: '/images/THE_RADNESS_I_am_slime_ecb4c730-6e54-40c2-ab3a-858e287c2a39.png',
         primaryColor: '#D9571A',
-        title: '2022-07-07'
+        title: 'Meditation: 2022-07-07'
     }
 
 ];
