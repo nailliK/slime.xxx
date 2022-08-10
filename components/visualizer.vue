@@ -171,6 +171,20 @@ let elapsed = 0;
 
 const songArray: Array<{}> = [
     {
+        audioSrc: '/audio/2022-08-10.mp3',
+        imgSrc: '/images/THE_RADNESS_I_am_SLIME_5ed5adf5-4371-4704-b48a-0c4b87743bdf.png',
+        title: 'Meditation: 2022-08-10',
+        glowColor: 'rgba(101,165,3,0.75)',
+        primaryColor: '#65A503'
+    },
+    {
+        audioSrc: '/audio/2022-08-05.mp3',
+        imgSrc: '/images/THE_RADNESS_I_am_slime_b2f4d074-41e5-42ae-880b-87c2d294709e.png',
+        title: 'Meditation: 2022-08-05',
+        glowColor: 'rgb(197,36,99,0.75)',
+        primaryColor: '#C52463'
+    },
+    {
         audioSrc: '/audio/2022-07-30.mp3',
         imgSrc: '/images/THE_RADNESS_I_am_slime_2b7ef6f0-72b0-43cc-819e-c6e931b57281.png',
         title: 'Meditation: 2022-07-30',
