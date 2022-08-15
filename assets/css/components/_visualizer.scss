@@ -113,4 +113,23 @@
     #audio {
     }
   }
+
+  &.fullscreen {
+    #player {
+      #interactive-area {
+        #buttons {
+          display: none;
+        }
+      }
+    }
+
+    h1 svg {
+      height: calc(12 * var(--font-size));
+    }
+
+    h2 {
+      font-size: calc(6 * var(--font-size));
+      line-height: calc(6 * var(--line-height));
+    }
+  }
 }

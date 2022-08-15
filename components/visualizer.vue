@@ -1,5 +1,8 @@
 <template>
-    <section id="visualizer">
+    <section id="visualizer"
+             :class="{
+                fullscreen: isVideoMode
+             }">
         <div id="player">
             <div id="poster-image">
                 <img :src="songArray[songIndex].imgSrc"
@@ -158,6 +161,7 @@
 <script lang="ts"
         setup>
 import {onMounted, Ref, ref} from 'vue';
+// import {RecordRTCPromisesHandler} from 'recordrtc';
 
 
 let windowWidth: number = 0;
@@ -169,7 +173,17 @@ let then = Date.now();
 let now = Date.now();
 let elapsed = 0;
 
+// let stream = await navigator.mediaDevices.getUserMedia({video: true, audio: true});
+// let recorder = new RecordRTCPromisesHandler();
+
 const songArray: Array<{}> = [
+    {
+        audioSrc: '/audio/2022-08-15.mp3',
+        imgSrc: '/images/THE_RADNESS_I_am_made_out_of_slime_5c2d1f3d-8cb4-4d0b-bcca-69fb72b0efe1.png',
+        title: 'Meditation: 2022-08-15',
+        glowColor: 'rgba(71,172,204, 0.75)',
+        primaryColor: '#47ACCC'
+    },
     {
         audioSrc: '/audio/2022-08-10.mp3',
         imgSrc: '/images/THE_RADNESS_I_am_SLIME_5ed5adf5-4371-4704-b48a-0c4b87743bdf.png',
@@ -227,8 +241,9 @@ const hRef: Ref<number> = ref(0);
 const wRef: Ref<number> = ref(0);
 const isPlaying: Ref<boolean> = ref(false);
 const songIndex: Ref<number> = ref(0);
-let points: Ref<Array<number>> = ref([]);
-let c: Ref<number> = ref(0);
+const points: Ref<Array<number>> = ref([]);
+const c: Ref<number> = ref(0);
+const isVideoMode: Ref<boolean> = ref(false);
 
 function play() {
     if (audioElement.readyState >= 2) {
@@ -244,7 +259,7 @@ function pause() {
     isPlaying.value = false;
 }
 
-function prev() {
+function prev(resumePlay: boolean = true) {
     pause();
 
     songIndex.value--;
@@ -253,10 +268,12 @@ function prev() {
     }
     audioElement.load();
 
-    play();
+    if (resumePlay) {
+        play();
+    }
 }
 
-function next() {
+function next(resumePlay: boolean = true) {
     pause();
 
     songIndex.value++;
@@ -266,7 +283,9 @@ function next() {
     audioElement.load();
 
 
-    play();
+    if (resumePlay) {
+        play();
+    }
 }
 
 function draw(): void {
@@ -294,6 +313,7 @@ function initElements(): void {
 
 function initListeners(): void {
     window.addEventListener('resize', onResize);
+    window.addEventListener('keyup', onKeypress);
     audioElement.addEventListener('play', onPlay);
     audioElement.addEventListener('ended', onEnded);
 }
@@ -327,6 +347,44 @@ function onResize() {
         console.log(analyser.fftSize);
     }
 
+}
+
+function onKeypress(e) {
+    e.preventDefault();
+
+    console.log(e.code);
+
+    switch (e.code) {
+        case 'Escape' :
+            onExitFullscreen(e);
+            break;
+        case 'KeyV' :
+            onEnterFullscreen(e);
+            break;
+        case 'Space' :
+            if (isPlaying.value) {
+                pause();
+            } else {
+                play();
+            }
+            break;
+        case 'ArrowLeft':
+            prev(false);
+            break;
+        case 'ArrowRight':
+            next(false);
+            break;
+    }
+}
+
+function onEnterFullscreen(e) {
+    isVideoMode.value = true;
+    e.target.requestFullscreen();
+}
+
+function onExitFullscreen(e) {
+    isVideoMode.value = false;
+    document.exitFullscreen();
 }
 
 function onPlay() {
