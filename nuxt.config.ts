@@ -3,10 +3,9 @@ import {defineNuxtConfig} from 'nuxt';
 // https://v3.nuxtjs.org/api/configuration/nuxt.config
 export default defineNuxtConfig({
     css: [
-        '@/assets/css/components/_fonts.scss',
         '@/assets/css/main.scss'
     ],
-    ssr: false,
+    ssr: true,
     loaders: {
         vue: {
             transformAssetUrls: {

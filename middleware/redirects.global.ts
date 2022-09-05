@@ -2,23 +2,19 @@ import {defineNuxtRouteMiddleware, navigateTo} from '#app';
 import {songs} from '~/json/songs.json';
 import Song from '~/utils/interfaces/Song';
 
-function update(n) {
-
-}
-
 export default defineNuxtRouteMiddleware((to, from) => {
     let currentSong: Song = songs[0];
     let songIndex = 0;
-
-    // Force navigation to the first song
-    if (to.fullPath.indexOf('songs') < 0) {
-        return navigateTo(`/songs/${currentSong.id}`, {redirectCode: 301, replace: true});
-    } else if (!to.params.id) {
-        return navigateTo(`/songs/${currentSong.id}`, {redirectCode: 301, replace: true});
-    }
+    //
+    // // Force navigation to the first song
+    // if (to.fullPath.indexOf('songs') < 0) {
+    //     return navigateTo(`/songs/${currentSong.id}`, {redirectCode: 301, replace: true});
+    // } else if (!to.params.id) {
+    //     return navigateTo(`/songs/${currentSong.id}`, {redirectCode: 301, replace: true});
+    // }
 
     // check for next or previous directions
-    if (to.params.id[1]) {
+    if (typeof to.params.id !== 'undefined' && typeof to.params.id[1] !== 'undefined') {
         for (let i = 0; i < songs.length; i++) {
             if (songs[i].id === to.params.id[0]) {
                 songIndex = i;
