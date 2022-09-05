@@ -1,8 +1,5 @@
 <template>
-  <NuxtLayout name="default">
-    <visualizer/>
-  </NuxtLayout>
+    <NuxtLayout name="default">
+        <NuxtPage></NuxtPage>
+    </NuxtLayout>
 </template>
-
-<script setup>
-</script>

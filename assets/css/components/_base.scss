@@ -11,7 +11,10 @@ html, body, main, #__nuxt {
   position: relative;
 }
 
-html {
+html, body {
   background-color: var(--color-background);
 }
 
+.fullscreen {
+  cursor: none;
+}

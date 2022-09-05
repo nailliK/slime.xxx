@@ -1,0 +1,5 @@
+#media-player {
+  display: flex;
+  gap: calc(2 * var(--line-height));
+  // height: var(--line-height);
+}
