@@ -8,7 +8,7 @@ export default defineNuxtPlugin((nuxtApp) => {
         let songIndex = 0;
 
         // Force navigation to the first song
-        return navigateTo(`/songs/${currentSong.id}`, {redirectCode: 301, replace: true});
+        return navigateTo(`/songs/${currentSong.id}?autoplay=true`, {redirectCode: 301, replace: true});
 
     });
 });
