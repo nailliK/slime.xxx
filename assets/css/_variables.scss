@@ -1,3 +1,6 @@
+$cube-cols-unit: 8;
+$cube-integer: 16px;
+$cube-width: $cube-cols-unit * $cube-integer;
 
 :root {
   --color-background: #C9C9C9;
@@ -11,4 +14,9 @@
   --font-primary: "Noway", sans-serif;
   --font-secondary: "Noway", sans-serif;
   --font-size: 1rem;
+}
+
+:root {
+  --cube-integer: #{$cube-integer};
+  --cube-width: #{$cube-width};
 }

@@ -13,6 +13,8 @@ html, body, main, #__nuxt {
 
 html, body {
   background-color: var(--color-background);
+  height: 100vh;
+  width: 100vw;
 }
 
 .fullscreen {

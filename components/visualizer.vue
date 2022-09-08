@@ -41,7 +41,7 @@ let windowWidth: number = 0;
 let windowHeight: number = 0;
 let cubeInteger = 8;
 let cubeWidth: number = cubeInteger * cubeInteger;
-
+let fps: number = 12;
 let scene: THREE.Scene;
 let camera: THREE.PerspectiveCamera;
 let renderer: THREE.WebGLRenderer;
@@ -49,9 +49,12 @@ let light: THREE.SpotLight;
 let cubeGroup: THREE.Group;
 let cubeArray: Array<THREE.Mesh> = [];
 
+let cameraFOV: ComputedRef<Number> = computed(() => {
+
+});
+
 // Template variables
 let videoMode: ComputedRef<Boolean> = computed(() => props.videoMode);
-
 
 // Utilities
 function hslToHex(h, s, l) {
@@ -66,37 +69,45 @@ function hslToHex(h, s, l) {
 }
 
 function draw() {
-    if (typeof props.audioData !== 'undefined' && props.audioData.length > 0) {
-        let d = props.audioData.map((n) => {
-            return n;
-        });
+    windowHeight = window.innerHeight;
+    windowWidth = window.innerWidth;
 
-        let maxD = d.sort().reverse()[0];
+    renderer.setSize(windowWidth, windowHeight);
 
-        for (let p = 0; p < props.audioData.length; p++) {
+    camera.aspect = windowWidth / windowHeight;
+
+    camera.position.setZ((cubeWidth * cubeInteger));
+    camera.position.setY((cubeWidth * cubeInteger));
+
+    camera.fov = 1.5 * Math.atan(windowHeight / (2 * camera.position.z)) * (180 / Math.PI);
+    camera.updateProjectionMatrix();
+
+    camera.lookAt(cubeGroup.position);
+
+    for (let p = 0; p < cubeArray.length; p++) {
+        let cube: THREE.Mesh = cubeArray[p];
+        cube.material.color = new THREE.Color(hslToHex(props.primaryColor.n, 100, (p / Math.pow(cubeInteger, 3)) * 100));
+
+        if (typeof props.audioData !== 'undefined' && props.audioData.length > 0) {
             let scale = props.audioData[p] / 128;
-
-            let cube: THREE.Mesh = cubeArray[p];
-            cube.material.color = new THREE.Color(hslToHex(props.primaryColor.n, 100, (p / Math.pow(cubeInteger, 3)) * 100));
-
             cube.scale.setX(scale);
             cube.scale.setY(scale);
             cube.scale.setZ(scale);
         }
     }
 
+    cubeGroup.rotateX(0.005);
+    cubeGroup.rotateY(0.005);
 
-    // cubeGroup.rotateZ(-0.025);
-    cubeGroup.rotateX(0.00125);
-    cubeGroup.rotateY(0.00125);
-
-    camera.lookAt(cubeGroup.position);
     renderer.render(scene, camera);
 }
 
 function animate() {
-    requestAnimationFrame(animate);
     draw();
+
+    setTimeout(() => {
+        requestAnimationFrame(animate);
+    }, 1000 / fps);
 }
 
 
@@ -104,11 +115,9 @@ function initVisualizer() {
     scene = new THREE.Scene();
 
     camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 10000);
-    camera.position.setY(cubeWidth * cubeInteger);
-    camera.position.setZ(-cubeWidth * cubeInteger);
 
     renderer = new THREE.WebGLRenderer({alpha: true, antialias: true});
-    renderer.setPixelRatio(window.devicePixelRatio * 2);
+    renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.getElementById('canvas').appendChild(renderer.domElement);
     cubeGroup = new THREE.Group();
@@ -162,21 +171,12 @@ function initVisualizer() {
 }
 
 function onResize() {
-    windowHeight = window.innerHeight;
-    windowWidth = window.innerWidth;
 
-    camera.position.setY(cubeWidth * cubeInteger);
-    camera.position.setZ(-cubeWidth * cubeInteger);
 
-    camera.aspect = windowWidth / windowHeight;
-    camera.updateProjectionMatrix();
-
-    renderer.setSize(windowWidth, windowHeight);
 }
 
 onMounted(() => {
     initVisualizer();
     window.addEventListener('resize', onResize);
-    onResize();
 });
 </script>

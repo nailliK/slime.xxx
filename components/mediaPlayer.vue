@@ -3,7 +3,8 @@
              :style="{
         display: isFullScreen ? 'none' : undefined
     }">
-        <button id="prev"
+        <button v-if="isInit"
+                id="prev"
                 class="button"
                 @click="onPrevClick">
             <svg viewBox="0 0 40 40"
@@ -17,7 +18,19 @@
             <span>Previous</span>
         </button>
 
-        <button v-if="!isPlaying"
+        <div v-if="isLoading"
+             class="button">
+            <svg id="Layer_1"
+                 viewBox="0 0 40 40"
+                 x="0px"
+                 y="0px">
+                <path class="st0"
+                      d="M0,0v40h40V0H0z M10,22c-1.1,0-2-0.9-2-2s0.9-2,2-2s2,0.9,2,2S11.1,22,10,22z M20,22c-1.1,0-2-0.9-2-2
+	s0.9-2,2-2s2,0.9,2,2S21.1,22,20,22z M30,22c-1.1,0-2-0.9-2-2s0.9-2,2-2s2,0.9,2,2S31.1,22,30,22z"/>
+            </svg>
+        </div>
+
+        <button v-if="!isPlaying && !isLoading"
                 class="button"
                 @click="onPlayClick">
             <svg viewBox="0 0 40 40"
@@ -31,7 +44,7 @@
             <span>Play</span>
         </button>
 
-        <button v-if="isPlaying"
+        <button v-if="isPlaying && !isLoading"
                 class="button"
                 @click="onPauseClick">
             <svg viewBox="0 0 40 40"
@@ -44,7 +57,8 @@
             <span>Pause</span>
         </button>
 
-        <button class="button"
+        <button v-if="isInit"
+                class="button"
                 @click="onNextClick">
             <svg viewBox="0 0 40 40"
                  x="0px"
@@ -67,7 +81,10 @@
 <script lang="ts"
         setup>
 import Song from '~/utils/interfaces/Song';
-import {ComputedRef, onMounted} from 'vue';
+import {ComputedRef, onMounted, Ref, ref} from 'vue';
+
+let isLoading: Ref = ref(false);
+let isInit: Ref = ref(false);
 
 let props = defineProps({
     currentSong: {
@@ -85,10 +102,6 @@ let props = defineProps({
     isFullScreen: {
         type: Boolean,
         default: false
-    },
-    autoPlay: {
-        type: Boolean,
-        default: false
     }
 });
 
@@ -99,7 +112,6 @@ let audioContext: AudioContext;
 let analyser: AnalyserNode;
 let sourceNode: MediaElementAudioSourceNode;
 let fftSize: number = 1024;
-let audioData: Array<number> = [];
 
 let isFullScreen: ComputedRef = computed(() => {
     return props.isFullScreen;
@@ -144,22 +156,60 @@ function onKeyPress(e) {
     }
 }
 
-function onPlayClick(e) {
-    emit('isPlaying', true);
-    audioElement.play();
+function loadAudio() {
+
 }
 
-function onPauseClick(e) {
+function playAudio(loadAudio: Boolean = false) {
+    if (!isInit.value) {
+        initElements();
+        initListeners();
+        initAnalyser();
+        tick();
+        isInit.value = true;
+        loadAudio = true;
+    }
+
+    if (loadAudio) {
+        isLoading.value = true;
+
+        audioElement.oncanplay = () => {
+            isLoading.value = false;
+            audioElement.play();
+            emit('isPlaying', true);
+        };
+        audioElement.load();
+
+    } else {
+        audioElement.play();
+        emit('isPlaying', true);
+    }
+
+}
+
+function pauseAudio() {
     emit('isPlaying', false);
     audioElement.pause();
 }
 
+function onPlayClick(e: MouseEvent, loadAudio: Boolean = false) {
+    playAudio(loadAudio);
+}
+
+function onPauseClick(e) {
+    pauseAudio();
+}
+
 function onNextClick(e) {
-    emit('next');
+    onPauseClick(null);
+    emit('next', true);
+    onPlayClick(e, true);
 }
 
 function onPrevClick(e) {
-    emit('prev');
+    onPauseClick(null);
+    emit('prev', true);
+    onPlayClick(e, true);
 }
 
 function tick() {
@@ -167,9 +217,8 @@ function tick() {
 
     let freqArray: Uint8Array = new Uint8Array(analyser.frequencyBinCount);
     analyser.getByteTimeDomainData(freqArray);
-    audioData = [...freqArray];
 
-    emit('audioData', audioData);
+    emit('audioData', [...freqArray]);
 
     emit('songProgress', {
         progress: audioElement.currentTime,
@@ -178,14 +227,7 @@ function tick() {
 }
 
 onMounted(() => {
-    initElements();
-    initListeners();
-    initAnalyser();
-    tick();
 
-    if (props.autoPlay) {
-        onPlayClick(null);
-    }
 });
 
 </script>

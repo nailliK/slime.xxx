@@ -1,17 +1,105 @@
 @use "../variables";
 
+@keyframes cube-spin {
+  from {
+    transform: rotateY(0) rotateZ(0);
+  }
+  to {
+    transform: rotateY(-360deg) rotateZ(360deg);
+  }
+}
+
 #visualizer {
-  pointer-events: none;
+  position: relative;
 }
 
 #canvas {
   left: 0;
   position: fixed;
   top: 0;
-  z-index: 1;
+  z-index: 0;
 }
 
 #audio {
   display: none;
 }
 
+.scene {
+  align-items: center;
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  left: 0;
+  position: fixed;
+  top: 0;
+  transform-style: preserve-3d;
+  width: 100vw;
+}
+
+.cube-group {
+  animation: cube-spin 30s infinite linear;
+  height: var(--cube-group-width);
+  transform-origin: 50% 50%;
+  transform-style: preserve-3d;
+  width: var(--cube-group-width);
+
+  &__wrapper {
+    height: var(--cube-group-width);
+    position: absolute;
+    transform: translateZ(((0.5 * variables.$cube-integer) * -1) + (0.5 * variables.$cube-integer));
+    // transform: translateZ(calc(((var(--cube-group-width) * 0.5) * -1) + (var(--cube-integer) * 0.5)));
+    transform-origin: 50% 50%;
+    transform-style: preserve-3d;
+    width: var(--cube-group-width);
+  }
+}
+
+.cube {
+  height: var(--cube-integer);
+  position: absolute;
+  transform-origin: 50% 50%;
+  transform-style: preserve-3d;
+  width: var(--cube-integer);
+
+  .cube__face-group {
+    height: 100%;
+    transform-origin: 50% 50%;
+    transform-style: preserve-3d;
+    width: 100%;
+  }
+
+  &__face {
+    background: currentColor;
+    height: 100%;
+    position: absolute;
+    width: 100%;
+
+    &--front {
+      transform: translateZ(var(--half-cube-integer));
+    }
+
+    &--back {
+      transform: translateZ(0.5 * variables.$cube-integer * -1) rotateY(180deg);
+    }
+
+    &--top {
+      transform: rotateX(-90deg) translateY(0.5 * variables.$cube-integer * -1);
+      transform-origin: top center;
+    }
+
+    &--bottom {
+      transform: rotateX(90deg) translateY(0.5 * variables.$cube-integer);
+      transform-origin: bottom center;
+    }
+
+    &--left {
+      transform: rotateY(270deg) translateX(0.5 * variables.$cube-integer * -1);
+      transform-origin: center left;
+    }
+
+    &--right {
+      transform: rotateY(-270deg) translateX(0.5 * variables.$cube-integer);
+      transform-origin: top right;
+    }
+  }
+}

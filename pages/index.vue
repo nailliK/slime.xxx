@@ -8,8 +8,7 @@
                 <span>{{ formatTimeString(songProgress.duration) }}</span>
             </h3>
 
-            <media-player :auto-play="autoPlay"
-                          :current-song="currentSong"
+            <media-player :current-song="currentSong"
                           :is-full-screen="isFullscreen"
                           :is-playing="isPlaying"
                           :reference-integer="referenceInteger"
@@ -32,21 +31,17 @@
         setup>
 import {useRoute} from '#app';
 import {songs} from '~/json/songs.json';
-import {onMounted, ref, Ref} from 'vue';
+import {computed, ComputedRef, onMounted, Ref, ref} from 'vue';
 
 const route = useRoute();
-let id: Ref = ref(route.params.id[0]);
 let isPlaying: Ref = ref(false);
 let isFullscreen: Ref = ref(false);
-let autoPlay: Ref = ref(typeof route.query.autoplay !== 'undefined');
 
 let referenceInteger: Ref = ref(1024);
 let audioData: Ref<Array<Number>> = ref([]);
 let songProgress: Ref = ref({progress: 0, duration: 0});
-
-let currentSong: Ref = ref(songs.find((s) => {
-    return s.id === id.value;
-}));
+let songIndex: Ref = ref(0);
+let currentSong: ComputedRef = computed(() => songs[songIndex.value]);
 
 let n = Date.now();
 let primaryColor: Ref = ref({n: n, hex: hslToHex(n, 100, 50)});
@@ -100,14 +95,22 @@ function updateIsPlaying(n) {
 
 function prevSong() {
     if (isFullscreen.value === false) {
-        window.location.href = `/songs/${id.value}/prev`;
+        songIndex.value--;
+
+        if (songIndex.value < 0) {
+            songIndex.value = songs.length - 1;
+        }
     }
 
 }
 
 function nextSong() {
     if (isFullscreen.value === false) {
-        window.location.href = `/songs/${id.value}/next`;
+        songIndex.value++;
+
+        if (songIndex.value > songs.length - 1) {
+            songIndex.value = 0;
+        }
     }
 }
 
