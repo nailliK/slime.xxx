@@ -1,57 +1,53 @@
 {
   "songs": [
     {
+      "id": "bb77f15b-9f1d-463a-8194-f2cbe5d770ef",
+      "audioSrc": "/audio/2022-09-11.mp3",
+      "title": "Meditation: 2022-19-01"
+    },
+    {
       "id": "052e4f68-5a38-46c0-9748-da16b3b33699",
       "audioSrc": "/audio/2022-09-01.mp3",
-      "imgSrc": "/images/THE_RADNESS_Im_Slime_dc8dbf5d-dc4f-4b8a-9a42-20ed3fbfb0be.png",
       "title": "Meditation: 2022-09-01"
     },
     {
       "id": "adc9ba4e-5f2f-4e5f-af6f-0295f785733a",
       "audioSrc": "/audio/2022-08-19.mp3",
-      "imgSrc": "/images/THE_RADNESS_Im_Slime_dc8dbf5d-dc4f-4b8a-9a42-20ed3fbfb0be.png",
       "title": "Meditation: 2022-08-19"
     },
     {
       "id": "4d1d9bd9-6dc6-4de7-b091-f70ca11619b3",
       "audioSrc": "/audio/2022-08-15.mp3",
-      "imgSrc": "/images/THE_RADNESS_I_am_made_out_of_slime_5c2d1f3d-8cb4-4d0b-bcca-69fb72b0efe1.png",
       "title": "Meditation: 2022-08-15"
     },
     {
       "id": "b136064c-19a8-45d0-8428-3932d1d90fa2",
       "audioSrc": "/audio/2022-08-10.mp3",
-      "imgSrc": "/images/THE_RADNESS_I_am_SLIME_5ed5adf5-4371-4704-b48a-0c4b87743bdf.png",
       "title": "Meditation: 2022-08-10"
     },
     {
       "id": "c101fe76-7cae-4e8d-8a6d-60632c71a6a9",
       "audioSrc": "/audio/2022-08-05.mp3",
-      "imgSrc": "/images/THE_RADNESS_I_am_slime_b2f4d074-41e5-42ae-880b-87c2d294709e.png",
       "title": "Meditation: 2022-08-05"
     },
     {
       "id": "d3b50005-152c-469b-8162-5d9b9812684f",
       "audioSrc": "/audio/2022-07-30.mp3",
-      "imgSrc": "/images/THE_RADNESS_I_am_slime_2b7ef6f0-72b0-43cc-819e-c6e931b57281.png",
       "title": "Meditation: 2022-07-30"
     },
     {
       "id": "e58d3733-658d-4cb9-bc8e-673261db2682",
       "audioSrc": "/audio/2022-07-22.mp3",
-      "imgSrc": "/images/THE_RADNESS_I_am_slime_3279a317-9b68-4840-9eb3-3d94e80e394b.png",
       "title": "Meditation: 2022-07-22"
     },
     {
       "id": "cf0851cf-2933-4f94-b838-87c336cd32d2",
       "audioSrc": "/audio/2022-07-20.mp3",
-      "imgSrc": "/images/THE_RADNESS_I_am_slime_eab2de4f-a06a-4008-be43-405d4d4f8813.png",
       "title": "Meditation: 2022-07-20"
     },
     {
       "id": "84671396-9a97-4d76-9e19-34af170d7997",
       "audioSrc": "/audio/2022-07-07.mp3",
-      "imgSrc": "/images/THE_RADNESS_I_am_slime_ecb4c730-6e54-40c2-ab3a-858e287c2a39.png",
       "title": "Meditation: 2022-07-07"
     }
   ]

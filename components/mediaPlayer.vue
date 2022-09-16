@@ -111,7 +111,7 @@ let audioElement: HTMLAudioElement;
 let audioContext: AudioContext;
 let analyser: AnalyserNode;
 let sourceNode: MediaElementAudioSourceNode;
-let fftSize: number = 1024;
+let fftSize: number = props.referenceInteger;
 
 let isFullScreen: ComputedRef = computed(() => {
     return props.isFullScreen;
