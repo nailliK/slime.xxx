@@ -4,11 +4,13 @@
                 fullscreen: videoMode
              }">
         <div id="canvas">
-            <div v-for="(p,i) in visualizerPoints"
-                 v-if="audioData"
+            <div v-for="(p,i) in points"
                  :key="i"
-                 :style="{height: `#{p.s * 10}%`}"
-                 class="line">
+                 :style="{
+                transform: `rotate(${p.rotation}rad) scaleY(${p.scale})`,
+            }"
+                 class="point-container">
+                <div class="point"></div>
             </div>
         </div>
 
@@ -31,7 +33,7 @@ let props = defineProps({
     },
     referenceInteger: {
         type: Number,
-        default: 512
+        default: 1024
     },
     videoMode: {
         type: Boolean,
@@ -43,13 +45,12 @@ let windowWidth: number = 0;
 let windowHeight: number = 0;
 let cubeInteger = 8;
 let cubeWidth: number = cubeInteger * cubeInteger;
-let fps: number = 24;
-let cubeGroup: THREE.Group;
-let cubeArray: Array<THREE.Mesh> = [];
+let fps: number = 12;
+let cubeArray = [];
 
 // Template variables
 let videoMode: ComputedRef<Boolean> = computed(() => props.videoMode);
-let visualizerPoints: Ref<Array<{ x: number, y: number, z: number, s: number }>> = ref();
+let points: Ref = ref([]);
 
 
 // Utilities
@@ -64,42 +65,30 @@ function hslToHex(h, s, l) {
     return `#${f(0)}${f(8)}${f(4)}`;
 }
 
+
 function draw() {
+    let pointData = [];
+
     if (typeof props.audioData !== 'undefined' && props.audioData.length > 0) {
-        let d = props.audioData.map((n) => {
-            return n;
-        });
-
-        let xyz = [];
-        let x = 0;
-        let y = 0;
-        let z = 0;
-
-        for (let p = 0; p < props.audioData.length; p++) {
-            xyz.push({x, y, z, s: props.audioData[p] / 128});
-
-            x++;
-            if (x > cubeInteger - 1) {
-                x = 0;
-                y++;
-            }
-
-            if (y > cubeInteger - 1) {
-                y = 0;
-                z++;
-            }
+        pointData = props.audioData;
+    } else {
+        for (let i = 0; i < props.referenceInteger; i++) {
+            pointData.push(32);
         }
+    }
 
-        visualizerPoints.value = xyz;
+    points.value = [];
+    let numPoints = pointData.length;
+    let angleStep = (Math.PI * 2) / numPoints;
+
+    for (let p = 0; p < numPoints; p++) {
+        points.value.push({value: pointData[p], scale: pointData[p] / 128, rotation: p * angleStep});
     }
 }
 
 function animate() {
-    draw();
     requestAnimationFrame(animate);
-
-    // setTimeout(() => {
-    // }, 1000 / fps);
+    draw();
 }
 
 function onResize() {

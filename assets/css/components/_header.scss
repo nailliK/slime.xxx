@@ -33,17 +33,4 @@
       }
     }
   }
-
-  #media-player {
-    justify-content: flex-end;
-    order: 1;
-    width: 100%;
-  }
-
-  @media (min-width: 768px) {
-    #media-player {
-      order: 2;
-      width: auto;
-    }
-  }
 }

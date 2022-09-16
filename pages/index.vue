@@ -19,11 +19,11 @@
                           @is-playing="updateIsPlaying"></media-player>
         </header>
 
-        <visualizer :audio-data="audioData"
-                    :current-song="currentSong"
-                    :is-full-screen="isFullscreen"
-                    :isPlaying="isPlaying"
-                    :primary-color="primaryColor"></visualizer>
+        <visualizer-svg :audio-data="audioData"
+                        :current-song="currentSong"
+                        :is-full-screen="isFullscreen"
+                        :isPlaying="isPlaying"
+                        :primary-color="primaryColor"></visualizer-svg>
     </article>
 </template>
 

@@ -17,25 +17,13 @@ h1, h2, h3 {
 }
 
 h1 {
-  flex-basis: 100%;
-  padding: calc(2 * var(--line-height));
   position: relative;
-  width: 100%;
   z-index: 100;
-
-  svg {
-    height: calc(2 * var(--line-height));
-    width: auto;
-
-    path {
-      fill: var(--color-primary);
-      stroke: none;
-    }
-  }
 
   span {
     @include utilities.hidden;
   }
+
 }
 
 h2 {
