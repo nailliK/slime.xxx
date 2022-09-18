@@ -27,10 +27,9 @@ h1 {
 }
 
 h2 {
-  align-content: center;
-  font-size: calc(4 * var(--font-size));
-  font-weight: 100;
-  line-height: calc(4 * var(--line-height));
+  font-size: var(--font-size);
+  font-weight: 400;
+  line-height: var(--line-height);
   text-align: right;
   text-transform: uppercase;
   word-break: break-word;
@@ -39,15 +38,9 @@ h2 {
 
 h3 {
   font-size: var(--font-size);
-  font-weight: 300;
+  font-weight: 400;
   line-height: var(--line-height);
   text-align: right;
   text-transform: uppercase;
   word-break: break-word;
-
-  @media (min-width: 768px) {
-    font-size: calc(2 * var(--font-size));
-    line-height: calc(2 * var(--line-height));
-
-  }
 }

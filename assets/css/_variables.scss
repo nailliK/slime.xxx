@@ -1,7 +1,3 @@
-$cube-cols-unit: 8;
-$cube-integer: 16px;
-$cube-width: $cube-cols-unit * $cube-integer;
-
 :root {
   --color-background: #C9C9C9;
   --color-foreground: #393939;
@@ -9,7 +5,7 @@ $cube-width: $cube-cols-unit * $cube-integer;
 }
 
 :root {
-  --gap: 2rem;
+  --gap: 1rem;
   --line-height: 1rem;
   --font-primary: "Noway", sans-serif;
   --font-secondary: "Noway", sans-serif;
@@ -17,6 +13,11 @@ $cube-width: $cube-cols-unit * $cube-integer;
 }
 
 :root {
-  --cube-integer: #{$cube-integer};
-  --cube-width: #{$cube-width};
+  --point-length: 33vw;
+}
+
+@media screen and (orientation: portrait) {
+  :root {
+    --point-length: 33vh;
+  }
 }

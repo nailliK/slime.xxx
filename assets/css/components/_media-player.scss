@@ -1,5 +1,11 @@
 #media-player {
+  bottom: calc(4 * var(--line-height));
   display: flex;
-  gap: calc(2 * var(--line-height));
-  // height: var(--line-height);
+  gap: var(--gap);
+  padding: var(--line-height);
+  position: fixed;
+  right: 0;
+  z-index: 100;
 }
+
+

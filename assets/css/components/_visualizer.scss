@@ -1,18 +1,18 @@
 @use "../variables";
 
 #visualizer {
-  height: 100vh;
-  left: 0;
+  height: calc(2 * var(--point-length));
+  left: 50%;
   position: fixed;
-  top: 0;
-  width: 100vw;
+  top: 50%;
+  width: calc(2 * var(--point-length));
   z-index: 0;
 }
 
 #canvas {
-  left: 50%;
-  position: absolute;
-  top: 50%;
+  height: 100%;
+  position: relative;
+  width: 100%;
 
   .point-container {
     left: 0;
@@ -24,11 +24,10 @@
     .point {
       background-color: var(--color-primary);
       border-radius: 1px;
-      height: 33vh;
+      height: var(--point-length);
       overflow: hidden;
       width: 2px;
     }
   }
-
 
 }

@@ -1,38 +1,34 @@
 <template>
     <article id="page">
-        <header id="header">
-            <h2>{{ currentSong.title }}</h2>
-            <h3>
-                <span>{{ formatTimeString(songProgress.progress) }}</span>
-                <span>/</span>
-                <span>{{ formatTimeString(songProgress.duration) }}</span>
-            </h3>
+        <media-information :current-song="currentSong"
+                           :song-progress="songProgress"></media-information>
 
-            <media-player :current-song="currentSong"
-                          :is-full-screen="isFullscreen"
-                          :is-playing="isPlaying"
-                          :reference-integer="referenceInteger"
-                          @next="nextSong"
-                          @prev="prevSong"
-                          @audio-data="updateAudioData"
-                          @song-progress="updateSongProgress"
-                          @is-playing="updateIsPlaying"></media-player>
-        </header>
+        <media-player :current-song="currentSong"
+                      :is-full-screen="isFullscreen"
+                      :is-playing="isPlaying"
+                      :reference-integer="referenceInteger"
+                      @next="nextSong"
+                      @prev="prevSong"
+                      @audio-data="updateAudioData"
+                      @song-progress="updateSongProgress"
+                      @is-playing="updateIsPlaying"></media-player>
 
-        <visualizer-svg :audio-data="audioData"
-                        :current-song="currentSong"
-                        :is-full-screen="isFullscreen"
-                        :isPlaying="isPlaying"
-                        :primary-color="primaryColor"></visualizer-svg>
+        <visualizer :audio-data="audioData"
+                    :current-song="currentSong"
+                    :is-full-screen="isFullscreen"
+                    :isPlaying="isPlaying"
+                    :primary-color="primaryColor"></visualizer>
     </article>
 </template>
 
 <script lang="ts"
         setup>
-import {useRoute} from '#app';
+import {useRequestHeaders, useRoute} from '#app';
 import {songs} from '~/json/songs.json';
 import {computed, ComputedRef, onMounted, Ref, ref} from 'vue';
+import Environment from '~/utils/Helpers/Environment';
 
+const headers = useRequestHeaders();
 const route = useRoute();
 let isPlaying: Ref = ref(false);
 let isFullscreen: Ref = ref(false);
@@ -56,18 +52,6 @@ function hslToHex(h, s, l) {
         return Math.round(255 * color).toString(16).padStart(2, '0');   // convert to Hex and prefix "0" if needed
     };
     return `#${f(0)}${f(8)}${f(4)}`;
-}
-
-function formatTimeString(s) {
-    if (isNaN(s)) {
-        s = 0;
-    }
-
-    return new Date(s * 1000).toISOString().substr(11, 11).replace('.', ':');
-}
-
-function resetPrimaryColor() {
-    n = Date.now();
 }
 
 function incrementPrimaryColor() {
@@ -136,6 +120,11 @@ function tick() {
 }
 
 onMounted(() => {
+    if (Environment.isMobile()) {
+        referenceInteger.value = 512;
+    }
+    console.log(Environment.isMobile(), referenceInteger.value);
+
     window.addEventListener('keyup', onKeyPress);
     tick();
 });

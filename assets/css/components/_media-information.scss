@@ -1,0 +1,15 @@
+#media-information {
+  bottom: 0;
+  display: flex;
+  flex-wrap: wrap;
+  //gap: var(--gap);
+  padding: var(--line-height);
+  position: fixed;
+  right: 0;
+
+  h2, h3 {
+    width: 100%;
+  }
+}
+
+
