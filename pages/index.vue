@@ -1,5 +1,8 @@
 <template>
-    <article id="page">
+    <article id="page"
+             :style="{
+        backgroundImage: `url(${currentSong.imgSrc})`
+             }">
         <media-information :current-song="currentSong"
                            :song-progress="songProgress"></media-information>
 
@@ -59,9 +62,6 @@ function incrementPrimaryColor() {
 
     const root = document.documentElement;
     root.style.setProperty('--color-primary', hslToHex(n, 100, 50));
-    root.style.setProperty('--color-background', hslToHex(n, 100, 95));
-    root.style.setProperty('--color-foreground', hslToHex(n, 100, 15));
-
     primaryColor.value = {n: n, hex: hslToHex(n, 100, 50)};
 }
 
@@ -123,8 +123,6 @@ onMounted(() => {
     if (Environment.isMobile()) {
         referenceInteger.value = 512;
     }
-    console.log(Environment.isMobile(), referenceInteger.value);
-
     window.addEventListener('keyup', onKeyPress);
     tick();
 });

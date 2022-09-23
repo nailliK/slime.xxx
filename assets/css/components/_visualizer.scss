@@ -11,7 +11,9 @@
 
 #canvas {
   height: 100%;
+  mix-blend-mode: multiply;
   position: relative;
+  transform-origin: center center;
   width: 100%;
 
   .point-container {
@@ -19,7 +21,7 @@
     position: absolute;
     top: 0;
     transform-origin: center top;
-    transition: transform 0.125s ease-in-out;
+    //transition: all 0.25s ease-out;
 
     .point {
       background-color: var(--color-primary);

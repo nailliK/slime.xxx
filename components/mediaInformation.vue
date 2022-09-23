@@ -12,11 +12,7 @@
 <script lang="ts"
         setup>
 import Song from '~/utils/interfaces/Song';
-import {Ref, ref} from 'vue';
 import SongProgress from '~/utils/interfaces/SongProgress';
-
-let isLoading: Ref = ref(false);
-let isInit: Ref = ref(false);
 
 let props = defineProps({
     currentSong: {
@@ -37,7 +33,3 @@ function formatTimeString(s) {
     return new Date(s * 1000).toISOString().substr(11, 11).replace('.', ':');
 }
 </script>
-
-<style scoped>
-
-</style>

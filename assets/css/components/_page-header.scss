@@ -1,9 +1,6 @@
 #page-header {
-  height: calc(8 * var(--line-height));
-  left: 50%;
+  left: var(--gap);
   position: fixed;
-  top: 50%;
-  transform: translate(calc(-2.4 * var(--line-height)), calc(-4 * var(--line-height)));
-  width: calc(4.8 * var(--line-height));
+  top: var(--gap);
   z-index: 100;
 }

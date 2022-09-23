@@ -148,6 +148,7 @@ function onKeyPress(e) {
             }
             break;
         case 'ArrowLeft':
+            console.log('left');
             onPrevClick(null);
             break;
         case 'ArrowRight':

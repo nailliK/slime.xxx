@@ -1,13 +1,13 @@
 #logo {
-  height: calc(8 * var(--line-height));
-  width: calc(4.8 * var(--line-height));
+  height: calc(4 * var(--line-height));
+  width: auto;
 
   path {
     stroke: none;
   }
 
   .s {
-    fill: var(--color-background);
+    fill: var(--color-primary);
   }
 
   .s-shadow-right {

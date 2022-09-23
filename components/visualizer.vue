@@ -7,8 +7,8 @@
             <div v-for="(p,i) in points"
                  :key="i"
                  :style="{
-                transform: `rotate(${p.rotation}rad) scaleY(${p.scale})`,
-            }"
+                            transform: `rotate(${p.rotation}rad) scaleY(${p.scale})`,
+                         }"
                  class="point-container">
                 <div class="point"></div>
             </div>
@@ -22,8 +22,13 @@
 import {computed, ComputedRef, onMounted, Ref, ref} from 'vue';
 import Color from '~/utils/interfaces/Color';
 import Point from '~/utils/interfaces/Point';
+import Song from '~/utils/interfaces/Song';
 
 let props = defineProps({
+    currentSong: {
+        type: Object as () => Song,
+        default: {}
+    },
     audioData: {
         type: Array,
         default: []
@@ -46,11 +51,11 @@ let windowWidth: number = 0;
 let windowHeight: number = 0;
 let cubeInteger = 8;
 let cubeWidth: number = cubeInteger * cubeInteger;
-let fps: number = 24;
 
 // Template variables
 let videoMode: ComputedRef<Boolean> = computed(() => props.videoMode);
 let points: Ref<Array<Point>> = ref();
+let r: Ref<number> = ref(0);
 
 
 // Utilities
@@ -66,6 +71,8 @@ function hslToHex(h, s, l) {
 }
 
 function draw() {
+    r.value = r.value + .01;
+
     let pointData = [];
     if (typeof props.audioData !== 'undefined' && props.audioData.length > 0) {
         pointData = props.audioData;
@@ -78,8 +85,11 @@ function draw() {
     points.value = [];
     let numPoints = pointData.length;
     let angleStep = (Math.PI * 2) / numPoints;
+
     for (let p = 0; p < numPoints; p++) {
-        points.value.push({value: pointData[p], scale: pointData[p] / 128, rotation: p * angleStep});
+        let scale = (pointData[p] / 255) * 1.5;
+        let rotation = p * angleStep;
+        points.value.push({value: pointData[p], scale: scale, rotation: rotation});
     }
 }
 

@@ -12,9 +12,10 @@
                                     y1="140.5082"
                                     y2="290.5082">
                         <stop offset="0"
-                              stop-color="var(--color-background)"/>
-                        <stop offset="0.5"
                               stop-color="var(--color-primary)"/>
+                        <stop offset="0.5"
+                              stop-color="var(--color-primary)"
+                              stop-opacity="0"/>
                     </linearGradient>
 
                     <linearGradient id="s-shadow-left-gradient"
@@ -24,9 +25,10 @@
                                     y1="209.4918"
                                     y2="359.4918">
                         <stop offset="0.5"
-                              stop-color="var(--color-primary)"/>
+                              stop-color="var(--color-primary)"
+                              stop-opacity="0"/>
                         <stop offset="1"
-                              stop-color="var(--color-background)"/>
+                              stop-color="var(--color-primary)"/>
                     </linearGradient>
                 </defs>
 
