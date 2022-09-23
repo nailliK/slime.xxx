@@ -3,8 +3,7 @@
              :style="{
         display: isFullScreen ? 'none' : undefined
     }">
-        <button v-if="isInit"
-                id="prev"
+        <button id="prev"
                 class="button"
                 @click="onPrevClick">
             <svg viewBox="0 0 40 40"
@@ -57,8 +56,7 @@
             <span>Pause</span>
         </button>
 
-        <button v-if="isInit"
-                class="button"
+        <button class="button"
                 @click="onNextClick">
             <svg viewBox="0 0 40 40"
                  x="0px"
@@ -157,20 +155,7 @@ function onKeyPress(e) {
     }
 }
 
-function loadAudio() {
-
-}
-
 function playAudio(loadAudio: Boolean = false) {
-    if (!isInit.value) {
-        initElements();
-        initListeners();
-        initAnalyser();
-        tick();
-        isInit.value = true;
-        loadAudio = true;
-    }
-
     if (loadAudio) {
         isLoading.value = true;
 
@@ -204,13 +189,11 @@ function onPauseClick(e) {
 function onNextClick(e) {
     onPauseClick(null);
     emit('next', true);
-    onPlayClick(e, true);
 }
 
 function onPrevClick(e) {
     onPauseClick(null);
     emit('prev', true);
-    onPlayClick(e, true);
 }
 
 function tick() {
@@ -228,7 +211,10 @@ function tick() {
 }
 
 onMounted(() => {
-
+    initElements();
+    initListeners();
+    initAnalyser();
+    tick();
 });
 
 </script>

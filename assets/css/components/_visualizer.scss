@@ -11,7 +11,6 @@
 
 #canvas {
   height: 100%;
-  mix-blend-mode: multiply;
   position: relative;
   transform-origin: center center;
   width: 100%;
@@ -20,13 +19,14 @@
     left: 0;
     position: absolute;
     top: 0;
-    transform-origin: center top;
     //transition: all 0.25s ease-out;
+    transform-origin: center top;
 
     .point {
       background-color: var(--color-primary);
       border-radius: 1px;
       height: var(--point-length);
+      opacity: 0.75;
       overflow: hidden;
       width: 2px;
     }

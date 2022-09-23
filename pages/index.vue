@@ -3,10 +3,12 @@
              :style="{
         backgroundImage: `url(${currentSong.imgSrc})`
              }">
-        <media-information :current-song="currentSong"
+        <media-information v-if="isInit"
+                           :current-song="currentSong"
                            :song-progress="songProgress"></media-information>
 
-        <media-player :current-song="currentSong"
+        <media-player v-if="isInit"
+                      :current-song="currentSong"
                       :is-full-screen="isFullscreen"
                       :is-playing="isPlaying"
                       :reference-integer="referenceInteger"
@@ -16,11 +18,15 @@
                       @song-progress="updateSongProgress"
                       @is-playing="updateIsPlaying"></media-player>
 
-        <visualizer :audio-data="audioData"
+        <visualizer v-if="isInit"
+                    :audio-data="audioData"
                     :current-song="currentSong"
                     :is-full-screen="isFullscreen"
                     :isPlaying="isPlaying"
                     :primary-color="primaryColor"></visualizer>
+
+        <init-screen v-if="!isInit"
+                     @init="toggleInit"></init-screen>
     </article>
 </template>
 
@@ -33,6 +39,8 @@ import Environment from '~/utils/Helpers/Environment';
 
 const headers = useRequestHeaders();
 const route = useRoute();
+
+let isInit: Ref = ref(false);
 let isPlaying: Ref = ref(false);
 let isFullscreen: Ref = ref(false);
 
@@ -113,6 +121,9 @@ function onKeyPress(e) {
     }
 }
 
+function toggleInit(n) {
+    isInit.value = n;
+}
 
 function tick() {
     requestAnimationFrame(tick);
