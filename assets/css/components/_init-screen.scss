@@ -4,11 +4,13 @@
   display: flex;
   height: 100vh;
   justify-content: center;
+  padding: var(--gap);
   position: fixed;
   width: 100vw;
   z-index: 10;
 
   .init-message {
     color: var(--color-foreground);
+    text-align: center;
   }
 }

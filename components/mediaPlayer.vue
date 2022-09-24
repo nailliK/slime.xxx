@@ -157,8 +157,8 @@ function onKeyPress(e) {
 
 function playAudio(loadAudio: Boolean = false) {
     if (loadAudio) {
+        audioElement.currentTime = 0;
         isLoading.value = true;
-
         audioElement.oncanplay = () => {
             isLoading.value = false;
             audioElement.play();
