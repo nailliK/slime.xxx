@@ -1,9 +1,10 @@
 {
   "private": true,
   "scripts": {
-    "dev": "nuxi dev",
-    "build": "nuxi build",
-    "start": "nuxi preview",
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
     "format": "prettier . --write",
     "lint": "eslint --ext .ts,.vue, . --fix"
   },
