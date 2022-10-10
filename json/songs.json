@@ -1,6 +1,13 @@
 {
   "songs": [
     {
+      "id": "1901733d-dcb1-443f-ba47-433704e90c11",
+      "audioSrc": "/audio/2022-10-09.mp3",
+      "imgSrc": "/images/2022-10-09.png",
+      "imgAnchor": "center center",
+      "title": "Meditation: 2022-10-09"
+    },
+    {
       "id": "292eb12e-96c0-4ed2-abe8-87b9b01cd2ec",
       "audioSrc": "/audio/2022-10-06.mp3",
       "imgSrc": "/images/2022-10-06.png",
