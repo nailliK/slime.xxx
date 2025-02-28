@@ -4,8 +4,8 @@ FROM oven/bun:latest
 # Set the working directory
 WORKDIR /app
 
-# Copy package.json and bun.lockb files
-COPY package.json bun.lockb ./
+# Copy package.json file
+COPY package.json ./
 
 # Install dependencies
 RUN bun install
