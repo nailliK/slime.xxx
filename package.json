@@ -10,9 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@aws-sdk/client-s3": "^3.750.0",
     "dotenv": "^16.4.7",
-    "fast-xml-parser": "^5.0.8",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },
