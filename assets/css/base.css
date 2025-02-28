@@ -1,0 +1,23 @@
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-family: var(--font-primary), monospace;
+    font-size: var(--font-size);
+    line-height: var(--line-height);
+
+    color: var(--color-foreground);
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+}
+
+a {
+    color: var(--color-primary);
+    text-decoration: none;
+}

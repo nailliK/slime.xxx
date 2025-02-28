@@ -1,0 +1,7 @@
+#footer {
+    display: flex;
+    position: absolute;
+    bottom: var(--line-height);
+    left: var(--line-height);
+    z-index: 100;
+}

@@ -1,0 +1,18 @@
+#header {
+    width: 100vw;
+    height: 100vh;
+
+    display: grid;
+    place-items: center;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+
+    pointer-events: none;
+
+    #logo {
+        height: calc(var(--line-height) * 16);
+    }
+}

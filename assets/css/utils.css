@@ -1,0 +1,4 @@
+.add-background {
+    background: var(--color-background);
+    padding: var(--line-height);
+}

@@ -1,0 +1,18 @@
+#media-player-information {
+    margin: var(--line-height);
+    position: relative;
+    z-index: 0;
+
+    div {
+        margin-bottom: var(--line-height);
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+
+        span {
+            display: inline-block;
+            word-break: break-all;
+        }
+    }
+}
