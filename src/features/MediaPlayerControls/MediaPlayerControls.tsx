@@ -52,7 +52,10 @@ export default function MediaPlayerControls() {
 
   useEffect(() => {
     if (currentTrackIndex && totalTime && currentTime) {
-      if (totalTime > 0 && currentTime >= totalTime - 1) {
+      if (
+        Math.floor(totalTime) > 0 &&
+        Math.ceil(currentTime) >= Math.floor(totalTime) - 1
+      ) {
         handleNext();
       }
     }

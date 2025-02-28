@@ -20,15 +20,20 @@
         /*opacity: 0;*/
     }
 
-    canvas {
+    svg {
         width: 100vw;
         height: 100vh;
+        transform: scale(1, -1);
 
         position: absolute;
         top: 0;
         left: 0;
         z-index: 1;
+        mix-blend-mode: color;
+        filter: blur(4px);
 
-        filter: invert(1) grayscale(1);
+        path {
+            fill: var(--color-primary);
+        }
     }
 }

@@ -1,6 +1,7 @@
 #media-player-controls {
-    margin: 0 var(--line-height);
-    position: relative;
+    position: absolute;
+    bottom: calc(var(--line-height) * 5);
+    left: var(--line-height);
     z-index: 1;
 
     span {

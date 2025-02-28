@@ -3,17 +3,16 @@ import { useEffect, useRef } from 'react';
 import BucketService from '@/utils/BucketService.ts';
 import ArrayTools from '@/utils/ArrayTools.ts';
 import './MediaVisualizer.css';
+import anime from 'animejs';
 
 export default function MediaVisualizer() {
   const { state, dispatch } = useGlobalState();
   const imageRef = useRef<HTMLImageElement | null>(null);
-  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const svgRef = useRef<SVGSVGElement | null>(null);
 
   const {
     frequencyData,
     imageFiles,
-    imageLoading,
-    playing,
     currentTrack,
     currentImageIndex,
     currentImage,
@@ -21,7 +20,6 @@ export default function MediaVisualizer() {
 
   useEffect(() => {
     const fetchImageFiles = async () => {
-      console.log('hi');
       const bucketService: BucketService = new BucketService();
       let bucketFiles = await bucketService.bucketContents('images/');
       bucketFiles = new ArrayTools().shuffleArray(bucketFiles);
@@ -67,71 +65,53 @@ export default function MediaVisualizer() {
   }, [currentTrack]);
 
   useEffect(() => {
-    if (
-      !imageLoading &&
-      playing &&
-      canvasRef.current &&
-      imageRef.current &&
-      frequencyData
-    ) {
-      const canvas = canvasRef.current;
-      const ctx = canvas.getContext('2d');
-      const img = imageRef.current;
+    if (svgRef.current && frequencyData) {
+      const svg = svgRef.current;
+      const width = svg.clientWidth || svg.parentElement?.clientWidth || 500; // Default width if not set
+      const height = svg.clientHeight || svg.parentElement?.clientHeight || 500; // Default height if not set
+      const pathData = generateWaveformPath(frequencyData, width, height);
 
-      // Set canvas dimensions to match the CSS styling
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-
-      // Clear the canvas
-      ctx?.clearRect(0, 0, canvas.width, canvas.height);
-
-      // Cut off the last third of the frequency data
-      const trimmedFrequencyData = frequencyData.slice(
-        0,
-        Math.floor((frequencyData.length * 2) / 4),
-      );
-      const sliceWidth = canvas.width / trimmedFrequencyData.length;
-      const imgAspectRatio = img.naturalWidth / img.naturalHeight;
-      const canvasAspectRatio = canvas.width / canvas.height;
-
-      let sx = 0,
-        sy = 0,
-        sWidth = img.naturalWidth,
-        sHeight = img.naturalHeight;
-
-      if (imgAspectRatio > canvasAspectRatio) {
-        sWidth = img.naturalHeight * canvasAspectRatio;
-        sx = (img.naturalWidth - sWidth) / 2;
+      const pathElement = svg.querySelector('path');
+      if (pathElement) {
+        pathElement.setAttribute('d', pathData);
+        anime({
+          targets: pathElement,
+          d: pathData,
+          easing: 'easeInOutQuad',
+          duration: 10000,
+        });
       } else {
-        sHeight = img.naturalWidth / canvasAspectRatio;
-        sy = (img.naturalHeight - sHeight) / 2;
-      }
-
-      for (let i = 0; i < trimmedFrequencyData.length; i++) {
-        const sliceHeight = (trimmedFrequencyData[i] / 255) * canvas.height;
-
-        ctx?.drawImage(
-          img,
-          sx + (i * sWidth) / trimmedFrequencyData.length, // Source x
-          sy, // Source y
-          sWidth / trimmedFrequencyData.length, // Source width
-          sHeight, // Source height
-          i * sliceWidth, // Destination x
-          0, // Destination y
-          sliceWidth, // Destination width
-          canvas.height, // Destination height
-        );
-
-        // Crop the slice based on frequency data
-        ctx?.clearRect(
-          i * sliceWidth,
-          0,
-          sliceWidth,
-          canvas.height - sliceHeight,
-        );
+        console.error('Path element not found');
       }
     }
   }, [frequencyData, currentImage]);
+
+  const generateWaveformPath = (
+    data: Uint8Array,
+    width: number,
+    height: number,
+  ): string => {
+    const slicedData = data.slice(0, data.length / 4);
+    const sliceWidth = width / slicedData.length;
+    let path = `M 0 ${height / 2}`;
+
+    for (let i = 0; i < slicedData.length - 1; i++) {
+      const x1 = i * sliceWidth;
+      const y1 = (slicedData[i] / 255) * height;
+      const x2 = (i + 1) * sliceWidth;
+      const y2 = (slicedData[i + 1] / 255) * height;
+
+      const cp1x = x1 + sliceWidth / 4;
+      const cp1y = height - y1;
+      const cp2x = x2 - sliceWidth / 4;
+      const cp2y = height - y2;
+
+      path += ` C ${cp1x} ${cp1y}, ${cp2x} ${cp2y}, ${x2} ${height - y2}`;
+    }
+
+    path += ` L ${width} ${height} L 0 ${height} Z`;
+    return path;
+  };
 
   const handleImageLoaded = () => {
     dispatch({
@@ -143,8 +123,14 @@ export default function MediaVisualizer() {
   return (
     currentImage && (
       <section id={'media-visualizer'}>
-        <div>Image Loading: {imageLoading.toString()}</div>
-        <canvas id={'media-visualizer-canvas'} ref={canvasRef}></canvas>
+        <svg
+          id={'media-visualizer-svg'}
+          ref={svgRef}
+          width="100%"
+          height="100%"
+        >
+          <path />
+        </svg>
         <img
           src={currentImage}
           onLoad={handleImageLoaded}
