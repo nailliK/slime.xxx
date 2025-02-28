@@ -28,8 +28,7 @@
         "./src/*"
       ]
     },
-    "allowSyntheticDefaultImports": true,
-    "useSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true
   },
   "include": [
     "src"
