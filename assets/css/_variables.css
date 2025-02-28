@@ -1,0 +1,23 @@
+:root {
+    --color-background: #222222;
+    --color-foreground: #e5e5e5;
+    --color-primary: #AADB1E;
+}
+
+:root {
+    --gap: 1rem;
+    --line-height: 1.5rem;
+    --font-primary: "IBM Plex Mono";
+    --font-secondary: "IBM Plex Mono";
+    --font-size: 1rem;
+}
+
+:root {
+    --point-length: 33vw;
+}
+
+@media screen and (orientation: portrait) {
+    :root {
+        --point-length: 33vh;
+    }
+}

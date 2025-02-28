@@ -1,0 +1,28 @@
+#media-player-controls {
+    margin: 0 var(--line-height);
+    position: relative;
+    z-index: 1;
+
+    span {
+        display: inline-flex;
+        gap: var(--line-height);
+
+        button {
+            background-color: var(--color-primary);
+            color: var(--color-background);
+            padding: 0 calc(var(--line-height) / 2);
+            line-height: var(--line-height);
+            height: var(--line-height);
+            border: none;
+            font-family: var(--font-primary), monospace;
+            font-size: var(--font-size);
+            font-weight: 700;
+            cursor: pointer;
+
+            &:disabled {
+                opacity: 0.25;
+                cursor: not-allowed;
+            }
+        }
+    }
+}
