@@ -31,28 +31,14 @@ function MediaPlayer() {
       analyzerRef.current = audioContext.createAnalyser();
       gainNodeRef.current = audioContext.createGain();
       gainNodeRef.current.gain.value = 0.5;
+      audioRef.current.volume = 0.5;
       source.connect(gainNodeRef.current);
       gainNodeRef.current.connect(analyzerRef.current);
       analyzerRef.current.connect(audioContext.destination);
 
       dispatchFrequencyData();
-      adjustGain();
     }
   }, [audioRef, currentTrack]);
-
-  const adjustGain = () => {
-    if (analyzerRef.current && gainNodeRef.current) {
-      const dataArray = new Uint8Array(analyzerRef.current.frequencyBinCount);
-      analyzerRef.current.getByteFrequencyData(dataArray);
-      const average = dataArray.reduce((a, b) => a + b) / dataArray.length;
-      const gainValue = Math.min(1.0, Math.max(0.1, 1 / (average / 256)));
-
-      if (isFinite(gainValue)) {
-        gainNodeRef.current.gain.value = gainValue;
-      }
-    }
-    requestAnimationFrame(adjustGain);
-  };
 
   const dispatchFrequencyData = () => {
     if (analyzerRef.current) {

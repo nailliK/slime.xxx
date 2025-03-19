@@ -8,11 +8,35 @@
     position: absolute;
     top: 0;
     left: 0;
-    z-index: 1;
+    z-index: 0;
 
     pointer-events: none;
 
-    #logo {
-        height: calc(var(--line-height) * 16);
+    span {
+        animation: rotate 1000s linear infinite;
+        display: flex;
+
+        #logo {
+
+            @media screen and (orientation: portrait) {
+                height: 100vw;
+                width: auto;
+            }
+
+            @media screen and (orientation: landscape) {
+                height: 100vh;
+                width: auto;
+            }
+        }
+    }
+
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(-360deg);
     }
 }

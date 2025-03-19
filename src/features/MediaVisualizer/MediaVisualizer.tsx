@@ -67,8 +67,8 @@ export default function MediaVisualizer() {
   useEffect(() => {
     if (svgRef.current && frequencyData) {
       const svg = svgRef.current;
-      const width = svg.clientWidth || svg.parentElement?.clientWidth || 500; // Default width if not set
-      const height = svg.clientHeight || svg.parentElement?.clientHeight || 500; // Default height if not set
+      const width = svg.clientWidth || svg.parentElement?.clientWidth || 500;
+      const height = svg.clientHeight || svg.parentElement?.clientHeight || 500;
       const pathData = generateWaveformPath(frequencyData, width, height);
 
       const pathElement = svg.querySelector('path');
@@ -77,8 +77,8 @@ export default function MediaVisualizer() {
         anime({
           targets: pathElement,
           d: pathData,
-          easing: 'easeInOutQuad',
-          duration: 10000,
+          easing: 'easeOutQuad',
+          duration: 5000,
         });
       } else {
         console.error('Path element not found');

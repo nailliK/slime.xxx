@@ -17,7 +17,6 @@
         z-index: 0;
 
         object-fit: cover;
-        /*opacity: 0;*/
     }
 
     svg {
@@ -29,11 +28,14 @@
         top: 0;
         left: 0;
         z-index: 1;
-        mix-blend-mode: color;
         filter: blur(4px);
+        mix-blend-mode: color;
 
         path {
+
             fill: var(--color-primary);
+            /*stroke: red;*/
+            /*stroke-width: 4px;*/
         }
     }
 }
