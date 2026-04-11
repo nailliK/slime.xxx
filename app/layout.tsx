@@ -21,7 +21,7 @@ const dogicaPixel = localFont({
 
 export const metadata: Metadata = {
   title: "SLIME",
-  description: "SLIME — music",
+  description: "I AM SLIME",
 };
 
 export default function RootLayout({

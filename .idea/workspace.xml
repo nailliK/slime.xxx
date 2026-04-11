@@ -2,16 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4c8e2e69-fd59-4150-8bc7-16355b4e7267" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AGENTS.md" beforeDir="false" afterPath="$PROJECT_DIR$/AGENTS.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DESIGN.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/components/AudioProvider.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/components/AudioProvider.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/components/FrequencySpheres.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/components/FrequencySpheres.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/components/Player.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/components/Player.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/components/Slider.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/components/Slider.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/utils/useColorCycle.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/utils/useColorCycle.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/layout.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -81,7 +72,7 @@
       <updated>1775756213231</updated>
       <workItem from="1775756214456" duration="4450000" />
       <workItem from="1775836422331" duration="3327000" />
-      <workItem from="1775940898176" duration="2665000" />
+      <workItem from="1775940898176" duration="3253000" />
     </task>
     <servers />
   </component>
