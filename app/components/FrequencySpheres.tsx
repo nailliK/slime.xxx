@@ -12,7 +12,7 @@ export const SPHERE_COUNT = 64;
 const MIN_DISTANCE = 0.2;
 const MAX_DISTANCE = 0.85;
 const LERP_SPEED = 0.16;
-const BALL_STRENGTH = 0.3;
+const BALL_STRENGTH = 0.25;
 const BALL_SUBTRACT = 12;
 const RESOLUTION = 72;
 const ROTATION_Y_SPEED = 0.15;
@@ -76,7 +76,7 @@ export default function FrequencySpheres() {
         metalness: 0.1,
         clearcoat: 0.1,
         clearcoatRoughness: 0.1,
-        iridescence: 0.5
+        iridescence: 0.2
       }),
     []
   );

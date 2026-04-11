@@ -3,14 +3,8 @@
 import { useRef } from 'react';
 import { useAudio } from './AudioProvider';
 import { useColorCycle } from '../utils/useColorCycle';
+import { formatTime } from '../utils/time';
 import Slider from './Slider';
-
-function formatTime(seconds: number): string {
-  if (!isFinite(seconds) || seconds < 0) return '0:00';
-  const m = Math.floor(seconds / 60);
-  const s = Math.floor(seconds % 60);
-  return `${m}:${s.toString().padStart(2, '0')}`;
-}
 
 export default function Player() {
   const {

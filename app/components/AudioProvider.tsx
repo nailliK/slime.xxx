@@ -9,6 +9,7 @@ import {
   useState,
 } from 'react';
 import { SPHERE_COUNT } from './FrequencySpheres';
+import { clamp } from '../utils/math';
 
 interface Track {
   title: string;
@@ -189,7 +190,7 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   const setVolume = useCallback((v: number) => {
-    const clamped = Math.max(0, Math.min(1, v));
+    const clamped = clamp(v, 0, 1);
     setVolumeState(clamped);
     if (audioRef.current) audioRef.current.volume = clamped;
   }, []);

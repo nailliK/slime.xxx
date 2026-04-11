@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useRef } from 'react';
+import { clamp } from '../utils/math';
 
 interface SliderProps {
   value: number; // 0–1
@@ -16,7 +17,7 @@ export default function Slider({ value, onChange, className = '' }: SliderProps)
       const bar = barRef.current;
       if (!bar) return;
       const rect = bar.getBoundingClientRect();
-      onChange(Math.max(0, Math.min(1, (clientX - rect.left) / rect.width)));
+      onChange(clamp((clientX - rect.left) / rect.width, 0, 1));
     },
     [onChange]
   );
@@ -42,7 +43,7 @@ export default function Slider({ value, onChange, className = '' }: SliderProps)
       onMouseDown={onMouseDown}
     >
       <div
-        className="h-full transition-none"
+        className="h-full"
         style={{ width: `${value * 100}%`, backgroundColor: 'var(--cycle-color)' }}
       />
     </div>

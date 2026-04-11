@@ -1,24 +1,43 @@
 'use client';
 
-import { useEffect, useRef, type RefObject } from 'react';
+import { useEffect, type RefObject } from 'react';
 import { getColorAtTime } from './colors';
 
+// Single shared RAF loop — all subscribers receive the same computed color
+// each frame so they stay perfectly in sync, regardless of mount order.
+const subscribers = new Set<HTMLElement>();
+let rafId = 0;
+let startTime: number | null = null;
+
+function tick(time: number) {
+  if (startTime === null) startTime = time;
+  const color = getColorAtTime((time - startTime) / 1000);
+  for (const el of subscribers) {
+    el.style.setProperty('--cycle-color', color);
+  }
+  rafId = requestAnimationFrame(tick);
+}
+
+function subscribe(el: HTMLElement) {
+  subscribers.add(el);
+  if (subscribers.size === 1) {
+    rafId = requestAnimationFrame(tick);
+  }
+}
+
+function unsubscribe(el: HTMLElement) {
+  subscribers.delete(el);
+  if (subscribers.size === 0) {
+    cancelAnimationFrame(rafId);
+    startTime = null;
+  }
+}
+
 export function useColorCycle(ref: RefObject<HTMLElement | null>) {
-  const startRef = useRef<number | null>(null);
-  const rafRef = useRef(0);
-
   useEffect(() => {
-    if (!ref?.current) return;
     const el = ref.current;
-
-    const tick = (time: number) => {
-      if (startRef.current === null) startRef.current = time;
-      const elapsed = (time - startRef.current) / 1000;
-      el.style.setProperty('--cycle-color', getColorAtTime(elapsed));
-      rafRef.current = requestAnimationFrame(tick);
-    };
-
-    rafRef.current = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(rafRef.current);
+    if (!el) return;
+    subscribe(el);
+    return () => unsubscribe(el);
   }, [ref]);
 }
