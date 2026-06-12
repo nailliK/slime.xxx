@@ -63,7 +63,7 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
       .then((data: Track[]) => {
         setPlaylist(data);
         playlistLenRef.current = data.length;
-        setCurrentTrackIndex(Math.floor(Math.random() * data.length));
+        setCurrentTrackIndex(data.length - 1);
       })
       .catch(() => {});
   }, []);
